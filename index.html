@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌈 El Camino Mágico de los Números 🐞</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="header-title-container">
+                <h1>🌈 El Camino Mágico</h1>
+                <p>¡Aprende a contar con Lilo el Conejo!</p>
+            </div>
+            <div class="header-controls">
+                <button id="music-btn" class="control-btn" title="Música On/Off">🎵</button>
+                <button id="sound-btn" class="control-btn" title="Voz On/Off">🔊</button>
+            </div>
+        </header>
+
+        <!-- Camino / Barra de progreso superior -->
+        <div id="path-progress-bar" class="path-progress-container hidden">
+            <div class="progress-line"></div>
+            <div class="progress-steps">
+                <div class="progress-step active" data-step="1" title="Estación 1: Manzanas">🍎<span class="step-num">1</span></div>
+                <div class="progress-step" data-step="2" title="Estación 2: Secuencias">🔢<span class="step-num">2</span></div>
+                <div class="progress-step" data-step="3" title="Estación 3: Ayuda a Lilo">🐰<span class="step-num">3</span></div>
+                <div class="progress-step" data-step="4" title="Estación 4: Animales">🦋<span class="step-num">4</span></div>
+                <div class="progress-step" data-step="5" title="Estación 5: Gran Reto">⭐<span class="step-num">5</span></div>
+            </div>
+        </div>
+
+        <main style="flex: 1; display: flex; flex-direction: column; position: relative;">
+            <!-- PANTALLA DE BIENVENIDA -->
+            <section id="welcome-screen" class="screen">
+                <div class="welcome-graphics">
+                    <!-- Sol feliz SVG -->
+                    <div class="happy-sun">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="25" fill="#FFEB3B" />
+                            <!-- Sun rays -->
+                            <path d="M50 10 L50 20 M50 80 L50 90 M10 50 L20 50 M80 50 L90 50 M22 22 L29 29 M71 71 L78 78 M22 78 L29 71 M71 22 L78 29" stroke="#FFC107" stroke-width="6" stroke-linecap="round" />
+                            <!-- Face -->
+                            <circle cx="43" cy="45" r="3" fill="#333" />
+                            <circle cx="57" cy="45" r="3" fill="#333" />
+                            <circle cx="38" cy="50" r="2.5" fill="#FF8A80" opacity="0.8" />
+                            <circle cx="62" cy="50" r="2.5" fill="#FF8A80" opacity="0.8" />
+                            <path d="M44 52 Q50 58 56 52" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <!-- Lilo el Conejo SVG -->
+                    <div class="guide-character welcome-bunny">
+                        <svg viewBox="0 0 100 120" id="welcome-lilo-svg">
+                            <!-- Ears -->
+                            <ellipse cx="38" cy="25" rx="8" ry="20" fill="#FFF" stroke="#E0E0E0" stroke-width="2" transform="rotate(-10, 38, 25)"/>
+                            <ellipse cx="38" cy="27" rx="4" ry="14" fill="#FFCDD2" transform="rotate(-10, 38, 27)"/>
+                            
+                            <ellipse cx="62" cy="25" rx="8" ry="20" fill="#FFF" stroke="#E0E0E0" stroke-width="2" transform="rotate(10, 62, 25)"/>
+                            <ellipse cx="62" cy="27" rx="4" ry="14" fill="#FFCDD2" transform="rotate(10, 62, 27)"/>
+                            <!-- Head -->
+                            <circle cx="50" cy="55" r="20" fill="#FFF" stroke="#E0E0E0" stroke-width="2"/>
+                            <!-- Eyes -->
+                            <circle cx="43" cy="52" r="3.5" fill="#333"/>
+                            <circle cx="42" cy="50" r="1.5" fill="#FFF"/>
+                            <circle cx="57" cy="52" r="3.5" fill="#333"/>
+                            <circle cx="56" cy="50" r="1.5" fill="#FFF"/>
+                            <!-- Nose & Mouth -->
+                            <polygon points="50,58 47,56 53,56" fill="#FF8A80"/>
+                            <path d="M48 60 Q50 63 50 60 Q50 63 52 60" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <!-- Cheeks -->
+                            <circle cx="36" cy="58" r="3" fill="#FF8A80" opacity="0.6"/>
+                            <circle cx="64" cy="58" r="3" fill="#FF8A80" opacity="0.6"/>
+                            <!-- Body -->
+                            <path d="M35 75 C35 70, 65 70, 65 75 L68 100 C68 103, 32 103, 32 100 Z" fill="#81C784" stroke="#66BB6A" stroke-width="2"/>
+                            <!-- Carrot icon on shirt -->
+                            <path d="M50 82 L47 90 L53 90 Z" fill="#FF9800"/>
+                            <path d="M50 80 Q48 83 50 83 Q52 83 50 80" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+                            <!-- Paws -->
+                            <circle cx="36" cy="82" r="5" fill="#FFF" stroke="#E0E0E0" stroke-width="2"/>
+                            <circle cx="64" cy="82" r="5" fill="#FFF" stroke="#E0E0E0" stroke-width="2"/>
+                            <ellipse cx="40" cy="102" rx="6" ry="4" fill="#FFF" stroke="#E0E0E0" stroke-width="2"/>
+                            <ellipse cx="60" cy="102" rx="6" ry="4" fill="#FFF" stroke="#E0E0E0" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+                <h2>¡Hola Amiguito! 🐰</h2>
+                <p>Soy Lilo el Conejo. ¡Acompáñame a recorrer este hermoso bosque mágico y jugar con los números!</p>
+                <button id="start-btn" class="big-btn">¡Comenzar Viaje! ▶️</button>
+            </section>
+
+            <!-- ESTACIÓN 1: CUENTA LAS MANZANAS -->
+            <section id="station1-screen" class="screen hidden">
+                <div class="station-header">
+                    <h2>Estación 1: Cuenta las Manzanas 🍎</h2>
+                    <div class="voice-hint">
+                        <button class="listen-btn" id="listen-s1">🔊 Escuchar</button>
+                        <span>Toca cada manzana en el árbol para contar en voz alta.</span>
+                    </div>
+                </div>
+
+                <div class="station-content tree-layout">
+                    <div class="apple-tree-container">
+                        <!-- Tree SVG with clickable apple slots -->
+                        <svg viewBox="0 0 200 200" id="apple-tree-svg">
+                            <!-- Trunk -->
+                            <path d="M90 120 L110 120 L115 190 L85 190 Z" fill="#8D6E63" stroke="#70574E" stroke-width="3" />
+                            <!-- Foliage -->
+                            <path d="M100 30 C60 30, 40 60, 40 90 C40 120, 70 130, 100 130 C130 130, 160 120, 160 90 C160 60, 140 30, 100 30 Z" fill="#4CAF50" stroke="#388E3C" stroke-width="4" />
+                            <circle cx="70" cy="70" r="30" fill="#66BB6A" />
+                            <circle cx="130" cy="70" r="30" fill="#66BB6A" />
+                            <circle cx="100" cy="60" r="35" fill="#4CAF50" />
+                        </svg>
+                        <!-- Clickable HTML Apple elements positioned absolutely over the SVG tree -->
+                        <div id="apples-container">
+                            <!-- Populated in JS (5 interactive apples) -->
+                        </div>
+                    </div>
+
+                    <!-- Side Mascot Speech -->
+                    <div class="bubble-mascot-container">
+                        <div class="speech-bubble" id="s1-speech">
+                            ¡Cuenta conmigo! Toca una manzana.
+                        </div>
+                        <div class="mini-mascot" id="mascot-s1">
+                            <!-- Mini Bunny SVG -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="station-actions">
+                    <button id="to-station2-btn" class="big-btn next-btn hidden">¡Siguiente Estación! ➡️</button>
+                </div>
+            </section>
+
+            <!-- ESTACIÓN 2: ¿QUÉ NÚMERO SIGUE? -->
+            <section id="station2-screen" class="screen hidden">
+                <div class="station-header">
+                    <h2>Estación 2: ¿Qué Número Sigue? 🔢</h2>
+                    <div class="voice-hint">
+                        <button class="listen-btn" id="listen-s2">🔊 Escuchar</button>
+                        <span>Mira los números. ¿Cuál sigue después del 3?</span>
+                    </div>
+                </div>
+
+                <div class="station-content sequence-layout">
+                    <!-- Sequence Display -->
+                    <div class="sequence-display">
+                        <div class="seq-num">1️⃣</div>
+                        <div class="seq-num">2️⃣</div>
+                        <div class="seq-num">3️⃣</div>
+                        <div class="seq-num question-mark" id="seq-empty">❓</div>
+                    </div>
+
+                    <!-- Mascot bubble in the middle -->
+                    <div class="speech-bubble" id="s2-speech">
+                        ¿Qué número va en la casilla del signo de pregunta? ¡Elige la respuesta correcta!
+                    </div>
+
+                    <!-- Options Buttons -->
+                    <div class="options-container" id="s2-options">
+                        <button class="option-btn" data-value="4">4️⃣</button>
+                        <button class="option-btn" data-value="6">6️⃣</button>
+                        <button class="option-btn" data-value="8">8️⃣</button>
+                    </div>
+                </div>
+
+                <div class="station-actions">
+                    <button id="to-station3-btn" class="big-btn next-btn hidden">¡Siguiente Estación! ➡️</button>
+                </div>
+            </section>
+
+            <!-- ESTACIÓN 3: AYUDA AL CONEJO -->
+            <section id="station3-screen" class="screen hidden">
+                <div class="station-header">
+                    <h2>Estación 3: Ayuda al Conejo Lilo 🐰🥕</h2>
+                    <div class="voice-hint">
+                        <button class="listen-btn" id="listen-s3">🔊 Escuchar</button>
+                        <span>Toca las piedras en orden del 1 al 10 para que Lilo llegue a su zanahoria.</span>
+                    </div>
+                </div>
+
+                <div class="station-content path-layout">
+                    <div class="stones-path-container" id="stones-path">
+                        <!-- Carrot at the end -->
+                        <div class="carrot-target" id="carrot-target">
+                            <svg viewBox="0 0 100 100">
+                                <path d="M30 40 Q50 10 55 40 Q40 25 30 40 M45 42 Q65 15 70 45 Q55 25 45 42" fill="#4CAF50"/>
+                                <path d="M25 45 L75 45 L50 95 Z" fill="#FF9800" stroke="#E65100" stroke-width="2"/>
+                                <path d="M35 55 H45 M55 55 H65 M32 70 H40 M58 70 H66" stroke="#E65100" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span class="carrot-label">¡Zanahoria!</span>
+                        </div>
+
+                        <!-- Stepping stones 1 to 10 -->
+                        <div class="stones-grid" id="stones-grid">
+                            <!-- Populated in JS (10 interactive stones) -->
+                        </div>
+
+                        <!-- Bunny that hops on the path -->
+                        <div class="hopping-bunny" id="hopping-bunny">
+                            <!-- Hops over stones -->
+                            <svg viewBox="0 0 100 100">
+                                <ellipse cx="38" cy="20" rx="7" ry="16" fill="#FFF" stroke="#CCC" stroke-width="1.5" transform="rotate(-10, 38, 20)"/>
+                                <ellipse cx="38" cy="22" rx="3.5" ry="11" fill="#FFCDD2" transform="rotate(-10, 38, 22)"/>
+                                <ellipse cx="62" cy="20" rx="7" ry="16" fill="#FFF" stroke="#CCC" stroke-width="1.5" transform="rotate(10, 62, 20)"/>
+                                <ellipse cx="62" cy="22" rx="3.5" ry="11" fill="#FFCDD2" transform="rotate(10, 62, 22)"/>
+                                <circle cx="50" cy="46" r="16" fill="#FFF" stroke="#CCC" stroke-width="1.5"/>
+                                <circle cx="44" cy="43" r="2.5" fill="#333"/>
+                                <circle cx="56" cy="43" r="2.5" fill="#333"/>
+                                <polygon points="50,49 47,47 53,47" fill="#FF8A80"/>
+                                <path d="M48 51 Q50 53 52 51" stroke="#333" stroke-width="1.5" fill="none"/>
+                                <circle cx="38" cy="48" r="2" fill="#FF8A80" opacity="0.6"/>
+                                <circle cx="62" cy="48" r="2" fill="#FF8A80" opacity="0.6"/>
+                                <path d="M38 62 C38 58, 62 58, 62 62 L64 80 C64 82, 36 82, 36 80 Z" fill="#81C784" stroke="#66BB6A" stroke-width="1.5"/>
+                                <circle cx="38" cy="68" r="4" fill="#FFF" stroke="#CCC" stroke-width="1.5"/>
+                                <circle cx="62" cy="68" r="4" fill="#FFF" stroke="#CCC" stroke-width="1.5"/>
+                                <ellipse cx="42" cy="82" rx="5" ry="3" fill="#FFF" stroke="#CCC" stroke-width="1.5"/>
+                                <ellipse cx="58" cy="82" rx="5" ry="3" fill="#FFF" stroke="#CCC" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="speech-bubble" id="s3-speech">
+                        ¡Ayúdame a cruzar el río! Presiona las piedras en orden del 1 al 10.
+                    </div>
+                </div>
+
+                <div class="station-actions">
+                    <button id="to-station4-btn" class="big-btn next-btn hidden">¡Siguiente Estación! ➡️</button>
+                </div>
+            </section>
+
+            <!-- ESTACIÓN 4: CUENTA LOS ANIMALITOS -->
+            <section id="station4-screen" class="screen hidden">
+                <div class="station-header">
+                    <h2>Estación 4: Cuenta los Animalitos 🦋🐝🐞</h2>
+                    <div class="voice-hint">
+                        <button class="listen-btn" id="listen-s4">🔊 Escuchar</button>
+                        <span id="s4-instruction-text">Toca los animalitos para contarlos, y luego selecciona la respuesta.</span>
+                    </div>
+                </div>
+
+                <div class="station-content animals-layout">
+                    <!-- Progress of animal rounds -->
+                    <div class="animal-round-indicator">
+                        <span class="round-dot active" id="round-dot-1">🦋</span>
+                        <span class="round-dot" id="round-dot-2">🐝</span>
+                        <span class="round-dot" id="round-dot-3">🐞</span>
+                    </div>
+
+                    <div class="animal-counting-box">
+                        <!-- Box containing the animals to count -->
+                        <div class="animals-container" id="animals-container">
+                            <!-- Populated in JS dynamically (e.g. 7 butterflies, then 5 bees, then 8 ladybugs) -->
+                        </div>
+
+                        <!-- Number count counter -->
+                        <div class="count-counter" id="animals-counter-feedback">Tocados: 0</div>
+                    </div>
+
+                    <div class="speech-bubble" id="s4-speech">
+                        ¿Cuántas mariposas hay volando? ¡Tócalas todas y luego responde!
+                    </div>
+
+                    <div class="options-container" id="s4-options">
+                        <!-- Populated dynamically in JS per round -->
+                    </div>
+                </div>
+
+                <div class="station-actions">
+                    <button id="to-station5-btn" class="big-btn next-btn hidden">¡Siguiente Estación! ➡️</button>
+                </div>
+            </section>
+
+            <!-- ESTACIÓN 5: EL GRAN RETO DEL CONTEO -->
+            <section id="station5-screen" class="screen hidden">
+                <div class="station-header">
+                    <h2>Estación 5: El Gran Reto 🌌⭐</h2>
+                    <div class="voice-hint">
+                        <button class="listen-btn" id="listen-s5">🔊 Escuchar</button>
+                        <span>¡Enciende las estrellas del camino en orden del 1 al 15!</span>
+                    </div>
+                </div>
+
+                <div class="station-content stars-challenge-layout">
+                    <div class="starry-sky-path" id="starry-sky-path">
+                        <!-- Populated in JS with 15 stars in a path -->
+                    </div>
+
+                    <div class="speech-bubble" id="s5-speech">
+                        ¡Casi llegamos al final del viaje! Enciende las 15 estrellas una por una en orden.
+                    </div>
+                </div>
+
+                <div class="station-actions">
+                    <!-- Note: completion goes directly to win-screen automatically or with a delay -->
+                </div>
+            </section>
+
+            <!-- PANTALLA DE GANADOR -->
+            <section id="win-screen" class="screen hidden">
+                <canvas id="celebration-canvas"></canvas>
+                <div class="win-trophy-container">
+                    <!-- Trophy SVG -->
+                    <svg viewBox="0 0 100 100" class="trophy-svg">
+                        <path d="M25 25 L75 25 L70 60 C70 75, 30 75, 30 60 Z" fill="#FFD54F" stroke="#FFC107" stroke-width="3"/>
+                        <path d="M35 73 L65 73 L60 90 L40 90 Z" fill="#FFCA28" stroke="#FFC107" stroke-width="2"/>
+                        <rect x="30" y="90" width="40" height="8" rx="2" fill="#8D6E63"/>
+                        <!-- Handles -->
+                        <path d="M26 35 C15 35, 15 50, 27 50" stroke="#FFD54F" stroke-width="5" fill="none" stroke-linecap="round"/>
+                        <path d="M74 35 C85 35, 85 50, 73 50" stroke="#FFD54F" stroke-width="5" fill="none" stroke-linecap="round"/>
+                        <!-- Star on trophy -->
+                        <polygon points="50,38 53,45 60,45 55,50 57,57 50,53 43,57 45,50 40,45 47,45" fill="#FFF"/>
+                    </svg>
+                </div>
+                <h2>🏆 ¡Excelente! 🏆</h2>
+                <h3 id="win-title">¡Ya eres un Explorador de los Números!</h3>
+                <p>Contaste manzanas, completaste secuencias, ayudaste a Lilo, contaste los animalitos del bosque y encendiste el camino de estrellas hasta el 15. ¡Eres súper genial!</p>
+                <button id="restart-btn" class="big-btn">Jugar de Nuevo 🔄</button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast de retroalimentación -->
+    <div id="feedback-toast" class="feedback-toast">
+        <span id="toast-icon">✨</span>
+        <span id="toast-message">¡Muy bien!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
